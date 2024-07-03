@@ -7,7 +7,7 @@ function Feedback() {
     const handleRatingClick = (rating) => {
         setSelectedRating(rating);
     };
-
+{/** /*/}
     const handleSendFeedback = () => {
         // Aqui você pode implementar a lógica para enviar o feedback
         console.log(`Feedback enviado: ${selectedRating}`);
