@@ -8,7 +8,7 @@ const SearchComponent = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     const endpoint = type === 'user' ? 'searchUser' : 'searchPost';
-    const response = await fetch(`http://localhost:5000/${endpoint}?params=${query}`);
+    const response = await fetch(`http://localhost:5000/api/search${endpoint}?params=${query}`);
     const data = await response.json();
     setResults(data);
   };

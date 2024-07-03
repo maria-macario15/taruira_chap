@@ -307,7 +307,7 @@ function Login() {
                             onChange={(e) => setPerg(e.target.value)} />
                     </div>
                  
-                    <button type="submit" className="btn btn-outline-dark">Recupere</button>
+                    <button type="submit" >Recupere</button>
                 </div>
             </div>
         </main>

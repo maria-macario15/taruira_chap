@@ -5,6 +5,6 @@ import {checkToken} from "../middleware/tokenValidation.js";
 const router = express.Router();
 
 router.get('/get-user', getUser);
-router.put('/update-user',checkToken, updateUser);
+router.put('/update-user', updateUser);
 
 export default router

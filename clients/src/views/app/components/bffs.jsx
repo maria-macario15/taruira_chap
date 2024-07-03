@@ -12,14 +12,14 @@ const FriendshipComponent = () => {
   }, [followerId]);
 
   const fetchFriendships = async () => {
-    const response = await fetch(`http://localhost:5000/friendship?follower_id=${followerId}`);
+    const response = await fetch(`http://localhost:5000/friendShip?follower_id=${followerId}`);
     const data = await response.json();
     setFriendships(data);
   };
 
   const addFriendship = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:5000/friendship', {
+    await fetch('http://localhost:5000/friendShip', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const FriendshipComponent = () => {
   };
 
   const deleteFriendship = async (followedId) => {
-    await fetch(`http://localhost:5000/friendship?follower_id=${followerId}&followed_id=${followedId}`, {
+    await fetch(`http://localhost:5000/friendShip/?follower_id=${followerId}&followed_id=${followedId}`, {
       method: 'DELETE'
     });
     fetchFriendships();

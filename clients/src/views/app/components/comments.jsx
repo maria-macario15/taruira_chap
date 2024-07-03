@@ -1,5 +1,6 @@
-import moment from "moment";
-import "moment/locale/pt-br";
+import React from 'react';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 function Comments(props) {
     const { comment_desc, user_img, username, created_at } = props.comment;
@@ -8,8 +9,8 @@ function Comments(props) {
         <div className="mt-6 flex gap-2">
             <img
                 className="w-8 h-8 rounded-full"
-                src={user_img ? user_img : "https://img.freepik.com/free-icon/user_318-159711.jpg"}
-                alt="imagem do usuário que fez o comentário"
+                src={user_img ? user_img : 'https://img.freepik.com/free-icon/user_318-159711.jpg'}
+                alt="Imagem do usuário que fez o comentário"
             />
             <div className="text-zinc-600 w-full">
                 <div className="flex flex-col bg-zinc-100 px-4 py-1 rounded-md">

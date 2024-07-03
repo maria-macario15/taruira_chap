@@ -55,7 +55,7 @@ const AddPost = () => {
         maxLength="150"
       ></textarea>
       {imageUrl && <img src={`http://localhost:5000${imageUrl}`} alt="Upload Preview" />}
-      <button type="submit">Add Post</button>
+      <button type="submit">Postar</button>
     </form>
   );
 };
