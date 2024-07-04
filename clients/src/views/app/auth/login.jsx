@@ -5,7 +5,6 @@ import { useState } from "react";
 
 
 
-
 // Componente funcional Login
 function Login() {
     // Estados para os campos do formulário e mensagens de erro/sucesso
@@ -226,7 +225,7 @@ function Login() {
                         {success && <span className="text-green-600">*{success}</span>}
                         {/* Botão de cadastro */}
 
-                        <button type="submit" className="btn btn-outline-dark ">Cadastre-se</button>
+                        <button className="btn btn-outline-dark" type="submit" >Cadastre-se</button>
                     </form>
                 </div>
 

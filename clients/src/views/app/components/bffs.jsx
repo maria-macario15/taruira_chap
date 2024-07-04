@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const FriendshipComponent = () => {
+const Friendship = () => {
   const [followerId, setFollowerId] = useState('');
   const [followedId, setFollowedId] = useState('');
   const [friendships, setFriendships] = useState([]);
+  const [email, setEmail] = useState([])
 
   useEffect(() => {
     if (followerId) {
@@ -19,7 +20,7 @@ const FriendshipComponent = () => {
 
   const addFriendship = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:5000/friendShip', {
+    await fetch('http://localhost:5000/friendShip/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -42,16 +43,16 @@ const FriendshipComponent = () => {
       <form onSubmit={addFriendship}>
         <input
           type="text"
-          value={followerId}
+          value={email}
           onChange={(e) => setFollowerId(e.target.value)}
-          placeholder="Follower ID"
+          placeholder="Seguidores ID"
           required
         />
         <input
           type="text"
           value={followedId}
           onChange={(e) => setFollowedId(e.target.value)}
-          placeholder="Followed ID"
+          placeholder="Seguindo ID"
           required
         />
         <button type="submit">Adicionar Amigo</button>
@@ -70,4 +71,4 @@ const FriendshipComponent = () => {
   );
 };
 
-export default FriendshipComponent;
+export default Friendship;

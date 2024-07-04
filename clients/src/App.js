@@ -5,6 +5,7 @@ import Login from "./views/app/auth/login";
 import Barra from './views/app/components/Barra';
 import Perfil from './views/app/components/Perfil';
 import Feed from './views/app/components/Feed';
+import Friendship from './views/app/components/bffs';
 
 // Componente para rotas protegidas
 function PrivateRoute({ element: Component, ...rest }) {
@@ -31,6 +32,7 @@ function App() {
       <Route element={<ProtectedLayout />}>
         <Route path="/" element= {<Feed/>} />
         <Route path="/profile" element={<PrivateRoute element={Perfil} />} />
+        <Route path="/friends" element={<PrivateRoute element={Friendship} />} />
       </Route>
 
       {/* Redireciona para /login se a rota não for encontrada */}

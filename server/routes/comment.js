@@ -1,6 +1,5 @@
 import express from "express";
 import { creatComment, getComment } from "../controllers/comment.js"; // Importa funções do controlador de comentários
-import { checkToken } from "../middleware/tokenValidation.js"; // Importa middleware de validação de token
 
 const router = express.Router(); // Cria uma instância de router do Express
 

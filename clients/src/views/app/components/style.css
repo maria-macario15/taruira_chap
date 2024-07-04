@@ -7,7 +7,7 @@
 }
 
 .post {
-  mix-blend-mode: difference;
+
   color: #9065AD;
 }
 
@@ -16,6 +16,12 @@
   height: 12%;
   border-radius: 50%;
   float: left
+}
+
+.use{
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
 }
 
 .postar {
@@ -250,8 +256,7 @@ button {
 }
 
 .bio {
-  font-family: 'Montserrat', sans-serif;
-  float: left
+  font-family: 'Montserrat', sans-serif
 }
 
 .bo_perfil {
@@ -689,3 +694,7 @@ button {
 @tailwind components;
 @tailwind utilities;
 
+.nomm{
+  width: 100%;
+
+}

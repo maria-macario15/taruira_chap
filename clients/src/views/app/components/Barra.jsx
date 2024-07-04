@@ -12,6 +12,7 @@ import SearchComponent from '../context/procurar';
 import FriendshipComponent from './bffs';
 import FeedbackForm from '../context/Feedback';
 import Share from './share';
+
 function Barra() {
     {/*feedback*/ }
     const [selectedRating, setSelectedRating] = useState('');
@@ -118,11 +119,11 @@ function Barra() {
 
 
                     <Link to="/profile">
-                        <img className='user' width="5%" src={user.user_img > 0 ? user.user_img : defaultUserUrl} alt="User" />
+                        <img className='user' width="5%" src={user.user_img ? user.user_img : defaultUserUrl} alt="User" />
                         <p className='fw-semibold fs-4 name '>{user.username}</p>
                     </Link>
 
-                    <Link to="/friendShip" className="nav-link active bi bi-person" aria-current="page" > Amigos</Link>
+                    <Link to="/friends" className="nav-link active bi bi-person" aria-current="page" > Amigos</Link>
                     <Link to="/" className="nav-link active bi bi-cursor" aria-current="page" > Feed</Link>
                     <Link className="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</Link>
                     <Link className="nav-link active  bi bi-people" aria-current="page" href="grupos"> Grupos</Link>
@@ -161,7 +162,7 @@ function Barra() {
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                   <Share></Share>
+                   <Share/>
                     
                 </div>
             </div>

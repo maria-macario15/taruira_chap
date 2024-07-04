@@ -1,26 +1,29 @@
-import React from 'react';
-import moment from 'moment';
-import 'moment/locale/pt-br';
+// src/components/CommentForm.js
+import React, { useState } from 'react';
 
-function Comments(props) {
-    const { comment_desc, user_img, username, created_at } = props.comment;
+const CommentForm = ({ postId, onComment }) => {
+  const [commentDesc, setCommentDesc] = useState('');
 
-    return (
-        <div className="mt-6 flex gap-2">
-            <img
-                className="w-8 h-8 rounded-full"
-                src={user_img ? user_img : 'https://img.freepik.com/free-icon/user_318-159711.jpg'}
-                alt="Imagem do usuário que fez o comentário"
-            />
-            <div className="text-zinc-600 w-full">
-                <div className="flex flex-col bg-zinc-100 px-4 py-1 rounded-md">
-                    <span className="font-semibold">{username}</span>
-                    <span>{comment_desc}</span>
-                </div>
-                <span className="text-xs">{moment(created_at).fromNow()}</span>
-            </div>
-        </div>
-    );
-}
+  const handleInputChange = (event) => {
+    setCommentDesc(event.target.value);
+  };
 
-export default Comments;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onComment(commentDesc);
+    setCommentDesc('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <textarea
+        placeholder="Digite seu comentário..."
+        value={commentDesc}
+        onChange={handleInputChange}
+      />
+      <button type="submit">Enviar</button>
+    </form>
+  );
+};
+
+export default CommentForm;

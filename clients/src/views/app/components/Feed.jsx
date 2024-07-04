@@ -1,60 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import './style.css'; // Importe o arquivo de estilos CSS
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { BiHeart, BiChat } from "react-icons/bi";
 
-function Feed() {
+function Post({ post }) {
+    const [id, setId] = useState(null);
+    const [comment_desc, setComment_desc] = useState("");
+    const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [isLoadingComments, setLoadingComments] = useState(true);
+    const [likedPosts, setLikedPosts] = useState(new Set());
     const [posts, setPosts] = useState([]);
-    const [userId, setUserId] = useState(''); // Estado para o ID do usuário logado
+
+    useEffect(() => {
+        if (post && post.id) {
+            setId(post.id);
+            fetchComments();
+        }
+    }, [post]);
 
     useEffect(() => {
         fetchPosts();
-        // Simulação de usuário logado - ajuste conforme sua lógica de autenticação
-        
     }, []);
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/post'); // Atualize a URL conforme necessário
-            setPosts(response.data); // Define os posts recebidos do servidor
+            const response = await axios.get('http://localhost:5000/api/post');
+            setPosts(response.data);
         } catch (error) {
             console.error('Erro ao buscar posts:', error.message);
         }
     };
 
-    const likePost = async (postId) => {
+    const fetchComments = async () => {
         try {
-            const response = await axios.post(`http://localhost:5000/api/likes`, { likes_user_id: userId, likes_post_id: postId });
-            console.log('Curtido o post com sucesso:', response.data);
-            // Atualiza os posts após curtir
-            await fetchPosts();
+            const response = await axios.get(`http://localhost:5000/api/comment?post_id=${id}`);
+            setComments(response.data);
+            setLoadingComments(false);
         } catch (error) {
-            console.error('Erro ao curtir o post:', error.message);
+            console.error("Erro ao buscar os comentários:", error);
         }
     };
 
-    const showComments = async (postId) => {
+    const handleLike = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/comment?post_id=${postId}`);
-            console.log('Comentários do post:', response.data);
-            // Implemente a lógica para exibir os comentários na interface
+            if (likedPosts.has(id)) {
+                await axios.delete(`http://localhost:5000/api/likes/${id}`);
+                likedPosts.delete(id);
+            } else {
+                await axios.post(`http://localhost:5000/api/likes`, { likes_post_id: id });
+                likedPosts.add(id);
+            }
+            setLikedPosts(new Set(likedPosts));
         } catch (error) {
-            console.error('Erro ao buscar comentários:', error.message);
+            console.error("Erro ao curtir o post:", error);
         }
+    };
+
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`http://localhost:5000/api/comment`, {
+                comment_desc,
+                post_id: id,
+                username: post.username,
+                created_at: new Date().toISOString(),
+            });
+            const newComment = response.data;
+            setComments([...comments, newComment]);
+            setComment_desc("");
+        } catch (error) {
+            console.error("Erro ao enviar o comentário:", error);
+        }
+    };
+
+    const toggleComments = () => {
+        setShowComments(!showComments);
     };
 
     return (
         <div className="container">
             <div className="feed-container">
-                {posts.map(post => (
+                {posts.map((post) => (
                     <div key={post.id} className="post">
                         <div className="post-content">
                             <p>{post.post_desc}</p>
                             {post.img && <img src={post.img} alt="Imagem do Post" />}
                         </div>
                         <div className="post-actions">
-                            <button onClick={() => likePost(post.id)}>Curtir</button>
-                            <button onClick={() => showComments(post.id)}>Ver Comentários</button>
+                            <button onClick={handleLike} className="like-button">
+                                <BiHeart /> {likedPosts.has(post.id) ? "Descurtir" : "Curtir"}
+                            </button>
+                            <button onClick={toggleComments} className="comment-button">
+                                <BiChat /> {showComments ? "Ocultar Comentários" : "Comentários"}
+                            </button>
                         </div>
+                        {showComments && (
+                            <div className="post-comments">
+                                <form onSubmit={handleCommentSubmit} className="comment-form">
+                                    <input
+                                        type="text"
+                                        value={comment_desc}
+                                        onChange={(e) => setComment_desc(e.target.value)}
+                                        placeholder="Adicione um comentário..."
+                                        className="comment-input"
+                                    />
+                                    <button type="submit" className="comment-submit">
+                                        <BiChat /> Comentar
+                                    </button>
+                                </form>
+                                {isLoadingComments ? (
+                                    <p>Carregando comentários...</p>
+                                ) : comments.length > 0 ? (
+                                    <ul className="comment-list">
+                                        {comments.map((comment) => (
+                                            <li key={comment.id} className="comment-item">
+                                                <strong>{comment.username}</strong>: {comment.comment_desc}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>Sem comentários ainda.</p>
+                                )}
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
@@ -62,4 +130,4 @@ function Feed() {
     );
 }
 
-export default Feed;
+export default Post;

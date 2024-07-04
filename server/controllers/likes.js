@@ -13,7 +13,7 @@ export const addLikes = (req, res) => {
             return res.status(200).json({ msg: "Curtido o post com sucesso!" });
         }
     });
-};
+}
 
 // Função para excluir um like existente de um post
 export const deleteLikes = (req, res) => {
