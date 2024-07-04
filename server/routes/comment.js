@@ -5,9 +5,9 @@ import { checkToken } from "../middleware/tokenValidation.js"; // Importa middle
 const router = express.Router(); // Cria uma instância de router do Express
 
 // Rota POST para criar um novo comentário
-router.post("/", creatComment);
+router.post("/",  creatComment);
 
 // Rota GET para obter todos os comentários de um post
-router.get("/", getComment);
+router.get("/",  getComment);
 
 export default router;

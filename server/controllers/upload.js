@@ -15,8 +15,10 @@ export const upload = multer({ storage: storage });
 
 // Controlador para lidar com a requisição de upload de arquivo
 export const uploadController = (req, res) => {
-    const file = req.file; // Obtém o arquivo enviado através da requisição
+    const file = req.file;
+    if (!file) {
+        return res.status(400).json({ msg: "Nenhum arquivo enviado!" });
+    }
 
-    // Retorna o nome do arquivo enviado como resposta da requisição
-    res.status(200).json(file.filename);
+    res.status(200).json({ filename: file.filename });
 };

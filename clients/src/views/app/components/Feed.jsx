@@ -23,7 +23,7 @@ function Feed() {
 
     const likePost = async (postId) => {
         try {
-            const response = await axios.post(`http://localhost:5000/api/likes`, { likes_user_id: userId, likes_pos_id: postId });
+            const response = await axios.post(`http://localhost:5000/api/likes`, { likes_user_id: userId, likes_post_id: postId });
             console.log('Curtido o post com sucesso:', response.data);
             // Atualiza os posts após curtir
             await fetchPosts();
